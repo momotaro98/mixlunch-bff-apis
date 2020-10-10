@@ -1,0 +1,43 @@
+{
+  "name": "mixlunch-bff",
+  "version": "1.1.0",
+  "description": "Backend For Frontend of Mixlunch",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha",
+    "lint": "eslint .",
+    "fix": "run-s fix:js",
+    "fix:js": "eslint . --quiet --fix"
+  },
+  "author": "Shintaro Ikeda",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "cookie-parser": "^1.4.4",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "express": "^4.17.1",
+    "firebase-admin": "^8.7.0",
+    "mocha": "^6.2.2",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
+    "request": "^2.88.0"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false,
+    "trailingComma": "all"
+  },
+  "dependencies": {
+    "tmp": "^0.2.1"
+  }
+}

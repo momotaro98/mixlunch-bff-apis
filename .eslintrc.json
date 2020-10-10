@@ -1,0 +1,19 @@
+{
+  "root": true,
+  "env": {
+    "es6": true,
+    "browser": false,
+    "node": true,
+    "mocha": true
+  },
+  "parser": "babel-eslint",
+  "extends": [
+    "standard",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "no-console": "off",
+    "camelcase": "off"
+  }
+}

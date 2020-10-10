@@ -1,0 +1,811 @@
+swagger: '2.0'
+info:
+  version: "1.3.0"
+  title: Mixlunch BFF API 
+
+paths:
+  /v1/sessionLogin:
+    post:
+      tags:
+        - session
+      summary: session login
+      responses:
+        200:
+          description: success
+  /v1/user:
+    get:
+      tags:
+        - user
+      summary: Get the user full information
+      responses:
+        200:
+          description: success
+          schema:
+           $ref: '#/definitions/User'
+  /v1/user/{user_id}:
+    get:
+      tags:
+        - user
+      summary: Get another user information
+      parameters: 
+      - name: user_id
+        in: path
+        required: true
+        type: integer
+      responses:
+        200:
+          description: success
+          schema:
+           $ref: '#/definitions/OtherUser'
+  /v1/tags/interest:
+    get:
+      tags:
+        - tag
+      summary: Get intereset tags
+      responses:
+        200:
+          description: success
+          schema:
+           $ref: '#/definitions/TagResponse'
+           
+  /v1/tags/skill:
+    get:
+      tags:
+        - tag
+      summary: Get skill tags
+      responses:
+        200:
+          description: success
+          schema:
+           $ref: '#/definitions/TagResponse'
+         
+  /v1/user/register:
+    post:
+      tags:
+        - user
+      consumes: ["application/x-www-form-urlencoded"]
+      summary: Register inputted profile
+      parameters: 
+        - in: body
+          name: user
+          description: The user to create
+          schema:
+            $ref: '#/definitions/PostUser'
+      responses:
+        200:
+          description: success
+          schema:
+            $ref: '#/definitions/PostResponse'
+           
+  /v1/schedule/:
+    post:
+      tags:
+        - schedule
+      consumes: ["application/x-www-form-urlencoded"]
+      summary: set schedule
+      parameters: 
+        - in: body
+          name: user
+          description: The user to create
+          schema:
+            $ref: '#/definitions/PostSchedule'
+      responses:
+        200:
+         description: success
+         schema:
+          $ref: '#/definitions/Schedule'
+        400:
+          description: error based on business logic
+          schema:
+           $ref: '#/definitions/Error'
+        500:
+          description: system error on APIs
+          schema:
+           $ref: '#/definitions/Error'
+           
+  /v1/schedule/{date}:
+    get:
+      tags:
+        - schedule
+      summary: get schedule of date
+      parameters: 
+      - name: date
+        in: path
+        required: true
+        type: integer
+      responses:
+        200:
+          description: success
+          schema:
+           $ref: '#/definitions/Schedule'
+  /v1/schedule/update/:
+    post:
+      tags:
+        - schedule
+      consumes: ["application/x-www-form-urlencoded"]
+      summary: update schedule
+      parameters: 
+        - in: body
+          name: user
+          description: The user to create
+          schema:
+            $ref: '#/definitions/PostSchedule'
+      responses:
+        200:
+         description: success
+         schema:
+          $ref: '#/definitions/Schedule'
+        400:
+          description: error based on business logic
+          schema:
+           $ref: '#/definitions/Error'
+        500:
+          description: system error on APIs
+          schema:
+           $ref: '#/definitions/Error'
+  /v1/schedule/delete/{date}:
+    post:
+      tags:
+        - schedule
+      summary: delete schedule of date
+      parameters: 
+        - in: path
+          required: true
+          name: date
+          type: string
+          format: date
+          description: The user to create
+      responses:
+        200:
+          description: success
+          schema:
+           $ref: '#/definitions/Schedule'
+        400:
+          description: error based on business logic
+          schema:
+           $ref: '#/definitions/Error'
+        500:
+          description: system error on APIs
+          schema:
+           $ref: '#/definitions/Error'
+
+  /v1/calendar/{year_month}:
+    get:
+      tags:
+        - calendar
+      summary: Get calendar of year_month
+      parameters: 
+      - name: year_month
+        in: path
+        required: true
+        type: integer
+      responses:
+        200:
+          description: success
+          schema:
+           $ref: '#/definitions/Calendar'
+
+  /v1/party/review/member/:
+    post:
+      tags:
+        - party
+      summary: Post review of party member
+      parameters: 
+        - in: body
+          name: party_review_member
+          description: Review of party member
+          schema:
+            $ref: '#/definitions/PartyReviewMember'
+      responses:
+        200:
+         description: success
+         schema:
+          $ref: '#/definitions/PartyReviewMember'
+        400:
+          description: error based on business logic
+          schema:
+           $ref: '#/definitions/Error'
+        500:
+          description: system error on APIs
+          schema:
+           $ref: '#/definitions/Error'
+
+  # /v1/party/review/restaurant/:
+  #   post:
+  #     tags:
+  #       - party
+  #     summary: Post review of restaurant
+  #     parameters: 
+  #       - in: body
+  #         name: party_review_restaurant
+  #         description: Review of restaurant
+  #         schema:
+  #           $ref: '#/definitions/PartyReviewRestaurant'
+  #     responses:
+  #       200:
+  #       description: success
+  #       schema:
+  #         $ref: '#/definitions/Schedule'
+  #       400:
+  #         description: error based on business logic
+  #         schema:
+  #         $ref: '#/definitions/Error'
+  #       500:
+  #         description: system error on APIs
+  #      schema:
+  #       $ref: '#/definitions/Error'       
+
+  /v1/report/user/:
+    post:
+      tags:
+        - report
+      summary: Post reporting a user from a user
+      parameters: 
+        - in: body
+          name: report_user
+          description: Report a user from a user
+          schema:
+            $ref: '#/definitions/ReportUser'
+      responses:
+        200:
+         description: success
+         schema:
+          $ref: '#/definitions/Schedule'
+        400:
+          description: error based on business logic
+          schema:
+           $ref: '#/definitions/Error'
+        500:
+          description: system error on APIs
+          schema:
+           $ref: '#/definitions/Error'
+
+  /v1/report/excuse/:
+    post:
+      tags:
+        - report
+      summary: Post excuse from a user
+      parameters: 
+        - in: body
+          name: report_excuse
+          description: Report an excuse from a user
+          schema:
+            $ref: '#/definitions/ReportExcuse'
+      responses:
+        200:
+         description: success
+         schema:
+          $ref: '#/definitions/Schedule'
+        400:
+          description: error based on business logic
+          schema:
+           $ref: '#/definitions/Error'
+        500:
+          description: system error on APIs
+          schema:
+           $ref: '#/definitions/Error'           
+
+definitions:
+  PostResponse:
+    type: object
+    properties:
+      success:
+        type: boolean
+        example: true
+
+  TagResponse:
+    type: object
+    properties:
+      tags:
+        type: array        
+        items:
+          $ref: '#/definitions/CategoryTags'
+        
+  CategoryTags:
+    type: object
+    properties:
+      category:
+        type: object
+        properties:
+          id:
+            type: number
+            example: 13
+          name:
+            type: string
+            example: Marketing
+      tags:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: number
+              example: 7
+            name:
+              type: string
+              example: Degital Marketing
+  
+  Location:
+    type: object
+    required:
+      - latitude
+      - longitude
+    properties:
+      latitude:
+        type: number
+        example: 35.610483
+      longitude:
+        type: number
+        example: 139.630123
+        
+  PostSchedule:
+    type: object
+    required:
+      - start_datetime
+      - end_datetime
+      - tag_ids
+      - location
+    properties:
+      start_datetime:
+        type: string
+        format: date-time
+      end_datetime:
+        type: string
+        format: date-time
+      tag_ids:
+        type: array
+        items:
+          type: number
+        example: [2, 6, 13]
+      location:
+        $ref: '#/definitions/Location'
+  
+  Schedule:
+    type: object
+    properties:
+      start:
+        type: string
+        example: 2018-01-01 11:00
+      end:
+        type: string
+        example: 2018-01-01 12:00
+      tags:
+        $ref: '#/definitions/CategoryTags'
+      location:
+        $ref: '#/definitions/Location'
+        
+  Calendar:
+    type: object
+    properties:
+      year_month:
+        type: string
+        example: 2018-11
+      events: 
+        type: array
+        items:
+          type: object
+        example:
+          [
+            {},
+            {},
+            {
+              "party": {
+                "party_id": 123,
+                "members": [
+                  {
+                    "user_id": "1001",
+                    "name": "Johan",
+                    "photo_url": "https://s3.aws.com/john1001"
+                    
+                  },
+                  {
+                    "user_id": "1002",
+                    "name": "Yamada",
+                    "photo_url": "https://s3.aws.com/yamada1002"
+                    
+                  },
+                  {
+                    "user_id": "1003",
+                    "name": "Michel",
+                    "photo_url": "https://s3.aws.com/m1003"
+                    
+                  }
+                ],
+                "start": "2018-11-03 11:00",
+                "end": "2018-11-03 12:00",
+                "tags": [
+                  {
+                    "category": {
+                      "id": 4,
+                      "name": "プログラミング"
+                    },
+                    "tags": [
+                      {
+                        "id": 1,
+                        "name": "Python"
+                      },
+                      {
+                        "id": 3,
+                        "name": "Ruby on Rails"
+                      }
+                    ]
+                  },
+                  {
+                    "category": {
+                      "id": 5,
+                      "name": "AI"
+                    },
+                    "tags": [
+                      {
+                        "id": 5,
+                        "name": "ディープラーニング"
+                      }
+                    ]
+                  }
+                ],
+                "roomId": "7N3C1V759LKE0UKEI8PQM97EHN89BLSY",
+                # "restaurant": {
+                #   "id": "R1234567890",
+                #   "name": "ニコニコハッピー食堂",
+                #   "location": {
+                #     "latitude": 34.234,
+                #     "longitude": 139.345
+                #   }
+                # }
+              },
+              "schedule": {
+                "start": "2018-11-03 11:00",
+                "end": "2018-11-03 13:00",
+                "tags": [
+                  {
+                    "category": {
+                      "id": 4,
+                      "name": "プログラミング"
+                    },
+                    "tags": [
+                      {
+                        "id": 1,
+                        "name": "Python"
+                      }
+                    ]
+                  },
+                  {
+                    "category": {
+                      "id": 5,
+                      "name": "AI"
+                    },
+                    "tags": [
+                      {
+                        "id": 5,
+                        "name": "ディープラーニング"
+                      }
+                    ]
+                  }
+                ],
+                "location": {
+                    "latitude": 35.610483,
+                    "longitude": 139.630123
+                }
+              }
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "party": {},
+              "schedule": {
+                "start": "2018-11-30 13:00",
+                "end": "2018-11-30 14:00",
+                "tags": [
+                  {
+                    "category": {
+                      "id": 4,
+                      "name": "プログラミング"
+                    },
+                    "tags": [
+                      {
+                        "id": 1,
+                        "name": "Python"
+                      }
+                    ]
+                  },
+                  {
+                    "category": {
+                      "id": 5,
+                      "name": "AI"
+                    },
+                    "tags": [
+                      {
+                        "id": 5,
+                        "name": "ディープラーニング"
+                      }
+                    ]
+                  }
+                ],
+                "location": {
+                    "latitude": 35.610483,
+                    "longitude": 139.630123
+                }
+              }
+            }
+          ]
+        
+  PostUser:
+    type: object
+    required:
+      - name
+      - email
+      - sex
+      - birthday
+      - location
+      - self_introduction
+      - languages
+      - occupation_ids
+      - interest_tag_ids
+      - skill_tag_ids
+    properties:
+      name:
+        type: string
+        example: Micheal Jackson
+      email:
+        type: string
+        format: email
+      nick_name:
+        type: string
+        example: Mike
+      sex:
+        type: string
+        example: 1
+      birthday:
+        type: string
+        format: date
+      photo_url:
+        type: string
+        example: https://s3.aws.com/bucket-id/xxx
+      location:
+        $ref: '#/definitions/Location'
+      position_id:
+        type: number
+        example: 5
+      academic_background:
+        type: string
+        example: Waseda University
+      company:
+        type: string
+        example: Rakuten, Inc.
+      self_introduction:
+        type: string
+        example: Hello! I'm Mike. Nice to meet you.
+      languages:
+        type: array
+        items:
+          type: string
+        example: ['ja', 'en']
+      occupation_ids:
+        type: array
+        items:
+          type: number
+        example: [4, 7]
+      interest_tag_ids:
+        type: array
+        items:
+          type: number
+        example: [1, 5, 9]
+      skill_tag_ids:
+        type: array
+        items:
+          type: number
+          example: [2, 6, 8]
+
+  User:
+    type: object
+    properties:
+      user_id:
+        type: string
+        example: yDlXdTXw5eV7jC7ETxX59gUk71J2
+      name:
+        type: string
+        example: Hoge Fuga
+      email:
+        type: string
+        example: foo.bar@buz.com
+      nick_name:
+        type: string
+        example: Fukkun
+      sex:
+        type: string
+        example: "1"
+      birthday:
+        type: string
+        example: "1992-03-03"
+      photo_url:
+        type: string
+        example: "https://s3.aws.com/bucket-id"
+      location:
+        $ref: '#/definitions/Location'
+      academic_background:
+        type: string
+        example: "早稲田大学"
+      company:
+        type: string
+        example: "リクルート"
+      self_introduction:
+        type: string
+        example: "こんにちは。よろしくです。"
+      languages:
+        type: array
+        items:
+          type: string
+        example: ["en", "ja"]
+      occupations:
+        type: array
+        items:
+          type: string
+        example: ["Application Engineer", "Data Scientist"]
+      interest_tags:
+        $ref: '#/definitions/CategoryTags'
+      skill_tags:
+        $ref: '#/definitions/CategoryTags'
+      blocking_users:
+        type: array
+        items:
+          type: string
+        example: ["user_id-abcdefg", "user_id-hijklmn"]  
+      is_review_done:
+        type: boolean
+        example: fasle  
+  
+  OtherUser:
+    type: object
+    properties:
+      name:
+        type: string
+        example: Hoge Fuga
+      email:
+        type: string
+        example: foo.bar@buz.com
+      nick_name:
+        type: string
+        example: Fukkun
+      photo_url:
+        type: string
+        example: "https://s3.aws.com/bucket-id"
+      academic_background:
+        type: string
+        example: "早稲田大学"
+      company:
+        type: string
+        example: "リクルート"
+      self_introduction:
+        type: string
+        example: "こんにちは。よろしくです。"
+      languages:
+        type: array
+        items:
+          type: string
+        example: ["en", "ja"]
+      occupations:
+        type: array
+        items:
+          type: string
+        example: ["Application Engineer", "Data Scientist"]
+      interest_tags:
+        $ref: '#/definitions/CategoryTags'
+      skill_tags:
+        $ref: '#/definitions/CategoryTags'
+        
+  PartyReviewMember:
+    type: object
+    properties:
+      party_id:
+        type: integer
+        description: "Party ID"
+        example: 123
+      reviewer:
+        type: string
+        description: "User ID of reviewer"
+        example: yDlXdTXw5eV7jC7ETxX59gUk71J2
+      reviewee:
+        type: string
+        description: "User ID of reviewee"
+        example: zOMXdTXw5eV7jC7ETxX59gUk45GB
+      score:
+        type: number
+        description: "Normalized evaluation score"
+        example: 0.8
+      comment:
+        type: string
+        example: "He was a good man. I wanna see him again."
+  
+  # PartyReviewRestaurant:
+  #   type: object
+  #   properties:
+  #     party_id:
+  #       type: integer
+  #       description: "Party ID"
+  #       example: 123
+  #     reviewer:
+  #       type: string
+  #       description: "User ID of reviewer"
+  #       example: yDlXdTXw5eV7jC7ETxX59gUk71J2
+  #     restaurant:
+  #       type: string
+  #       description: "Restaurant ID"
+  #       example: ABCadauaj987LHSFDFD987jC7ETxX59gUk45GB
+  #     score:
+  #       type: number
+  #       description: "Normalized evaluation score"
+  #       example: 0.6
+  #     comment:
+  #       type: string
+  #       example: "It was a good restaurant."
+
+  ReportUser:
+    type: object
+    properties:
+      party_id:
+        type: integer
+        example: 234
+      reporter:
+        type: string
+        description: "User ID of reporter"
+        example: yDlXdTXw5eV7jC7ETxX59gUk71J2
+      reportee:
+        type: string
+        description: "User ID of reportes"
+        example: zOMXdTXw5eV7jC7ETxX59gUk45GB
+      reason:
+        type: string
+        description: "Reason with text"
+        example: "セクハラ行為"
+
+  ReportExcuse:
+    type: object
+    properties:
+      party_id:
+        type: integer    
+        example: 234
+      reporter:
+        type: string
+        description: "User ID of reporter"
+        example: yDlXdTXw5eV7jC7ETxX59gUk71J2
+      reason:
+        type: string
+        description: "Reason with Text"
+        example: "急な仕事が入りドタキャンになってしまった。"        
+  
+  Error:
+    type: object
+    properties:
+      message:
+        type: string
+        example: Error occurred because of ...
+
+host: virtserver.swaggerhub.com
+schemes:
+ - https
+ - http
+basePath: /

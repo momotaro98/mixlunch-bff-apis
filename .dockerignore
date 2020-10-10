@@ -1,0 +1,6 @@
+docker-compose.yml
+
+// Node.js things
+node_modules
+npm-debug.log
+.git

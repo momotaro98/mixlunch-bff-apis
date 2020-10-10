@@ -1,0 +1,14 @@
+version: '2'
+services:
+  bff:
+    container_name: mixlunch-bff-app
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./.env
+
+networks:
+  default:
+    external:
+      name: mixlunch-service-api_api-net

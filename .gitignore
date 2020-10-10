@@ -1,0 +1,20 @@
+# Project
+FirebaseServiceAccount/
+aws/
+.env
+
+# Mac
+.DS_Store
+
+# JetBrains
+.idea/
+
+# VSCode
+/.vscode
+
+# Common
+*.swp
+
+# Node.js
+node_modules/
+yarn-error.log
